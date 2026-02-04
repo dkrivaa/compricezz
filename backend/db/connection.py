@@ -10,7 +10,7 @@ import asyncio
 from backend.db.models import Base, Store
 
 # DATABASE_URL = st.secrets["DATABASE_URL"]
-DATABASE_URL = 'postgresql+asyncpg://postgres.iewrflhytsxkjkrltmdm:shufersal134@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres'
+DATABASE_URL = st.secrets.get("DATABASE_URL")
 
 
 def get_engine(database_url: str = DATABASE_URL):
