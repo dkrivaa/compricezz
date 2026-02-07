@@ -8,10 +8,6 @@ from ui.common_elements import chain_selector, store_selector
 
 def render():
     """ The main function to render SHOP page """
-    # Spinner flag
-    if 'run_spinner' not in st.session_state:
-        st.session_state['run_spinner'] = True
-
     st.title('SHOP')
     st.subheader('Check Prices and Discounts')
     st.divider()
@@ -24,12 +20,8 @@ def render():
             # Enter chain_code into session_state
             force_value_into_session_state('chain_code', chain_code)
             # Select store
-            if st.session_state['run_spinner']:
-                with st.spinner('Loading Stores...'):
-                    store_code, _ = store_selector(chain_code=chain_code)
-                    st.session_state['run_spinner'] = False
-            else:
-                store_code = st.session_state.store_code
+            with st.spinner('Loading Stores...'):
+                store_code, _ = store_selector(chain_code=chain_code)
 
             if store_code:
                 # Enter store_code into session_state
