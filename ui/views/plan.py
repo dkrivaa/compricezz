@@ -20,7 +20,8 @@ def leading_store():
         )
 
     if main_store:
-        if st.button('Continue'):
+        if st.button(label='Continue',
+                     width='stretch',):
             # Set main_store in session state
             st.session_state['main_store'] = main_store
 

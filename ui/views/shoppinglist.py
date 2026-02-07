@@ -141,7 +141,8 @@ def add_item(item: str, quantity: float):
 
         # Show button only when all selections made
         if all_selected:
-            if st.button('Back to Shoppinglist'):
+            if st.button(label='Back to Shoppinglist',
+                         width='stretch'):
                 # Now add all selections to shoppinglist
                 for store_key, data in st.session_state.alternative_selections.items():
                     st.session_state.shoppinglist[store_key].append(data)
@@ -177,7 +178,8 @@ def update_quantity(idx: int, updated_quantity):
 @st.dialog(title='Item Already in Shoppinglist')
 def item_already_in_shoppinglist():
     """ Dialog box just to show item already in shoppinglist"""
-    if st.button('Back'):
+    if st.button(label='Back',
+                 width='stretch'):
         st.rerun()
 
 
