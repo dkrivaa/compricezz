@@ -137,8 +137,8 @@ def selected_stores_for_planning():
     """ Returns a table like presentation of selected stores with option to delete selection """
     # Check if selected_stores exist and non empty
     if st.session_state.get('selected_stores'):
-        with st.container(border=True):
-            for idx, item in enumerate(st.session_state.get('selected_stores')):
+        for idx, item in enumerate(st.session_state.get('selected_stores')):
+            with st.container(border=True):
                 st.write(f"{item['chain_alias']} - {item['store_name']}")
                 if st.button(
                         label='Remove',
