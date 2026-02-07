@@ -139,10 +139,14 @@ def selected_stores_for_planning():
     if st.session_state.get('selected_stores'):
         with st.container():
             for idx, item in enumerate(st.session_state.get('selected_stores')):
-                col1, col2 = st.columns(spec=[5, 1], vertical_alignment='center')
-
-                col1.write(f"{item['chain_alias']} - {item['store_name']}")
-                if col2.button(label='', icon=":material/delete:", key=f'{idx}_button'):
-                    del st.session_state.selected_stores[idx]
-                    st.rerun()
+                with st.container(border=True):
+                    st.write(f"{item['chain_alias']} - {item['store_name']}")
+                    if st.button(
+                            label='Remove',
+                            icon=":material/delete:",
+                            icon_position='left',
+                            width='stretch',
+                            key=f'{idx}_button'):
+                        del st.session_state.selected_stores[idx]
+                        st.rerun()
 

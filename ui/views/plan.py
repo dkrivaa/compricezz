@@ -67,6 +67,7 @@ def render():
     st.subheader('Make Shoppinglist and Compare Prices')
     st.divider()
 
+    # Two tabs - one for selection of stores, one for display of already selected stores
     tab1, tab2 = st.tabs(['Select Stores', 'Selected Stores'])
 
     with tab1:
@@ -92,9 +93,13 @@ def render():
         # Display of already selected stores
         with st.container(border=True):
             # Title row for selected stores with option to reset
-            col1, col2 = st.columns(spec=[4, 1], vertical_alignment='bottom')
-            col1.subheader(':orange[Selected Stores:]')
-            if col2.button(label='Reset', icon=":material/cleaning_bucket:"):
+            st.subheader(':orange[Selected Stores:]')
+            if st.button(
+                    label='Reset All',
+                    icon=":material/cleaning_bucket:",
+                    icon_position='left',
+                    width='stretch',
+                    key='reset'):
                 st.session_state['selected_stores'] = []
                 if 'lead_store' in st.session_state:
                     del st.session_state['lead_store']
