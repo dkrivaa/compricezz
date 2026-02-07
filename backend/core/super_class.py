@@ -35,7 +35,6 @@ class SupermarketChain:
             print(f"Error getting prices for {cls.alias} store {store_code}: {e}")
             return None
 
-
     @classmethod
     async def get_code(cls):
         """ Returns the code of the supermarket chain """
