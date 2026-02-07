@@ -14,6 +14,11 @@ def render():
         width='stretch'
         )
 
+    st.button(
+        label='Test',
+
+    )
+
     if i_want_to == 'SHOP':
         st.switch_page('ui/views/shop.py')
 
