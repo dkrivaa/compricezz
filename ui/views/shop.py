@@ -2,7 +2,7 @@ import streamlit as st
 from backend.services.async_runner import run_async
 from backend.services.session_state_service import force_value_into_session_state
 from backend.services.error_service import no_data_error
-from backend.pipelines.fresh_price_promo import shopping_data, fresh_price_data
+from backend.pipelines.fresh_price_promo import shopping_data
 from ui.common_elements import chain_selector, store_selector
 
 
@@ -20,8 +20,12 @@ def render():
             # Enter chain_code into session_state
             force_value_into_session_state('chain_code', chain_code)
             # Select store
-            with st.spinner('Loading Stores...'):
-                store_code, _ = store_selector(chain_code=chain_code)
+            if 'store_code' not in st.session_state:
+                with st.spinner('Loading Stores...'):
+                    store_code, _ = store_selector(chain_code=chain_code)
+            else:
+                store_code = st.session_state['store_code']
+
             if store_code:
                 # Enter store_code into session_state
                 force_value_into_session_state('store_code', store_code)
