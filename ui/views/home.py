@@ -6,25 +6,21 @@ def render():
     st.title('Welcome')
     st.divider()
 
-    # Select what to do - Shop or Plan
-    i_want_to = st.radio(
-        label='I want to:',
-        options=['SHOP', 'PLAN'],
-        index=None,
-        width='stretch'
-        )
+    with st.container():
+        # Select what to do - Shop or Plan
+        if st.button(
+            label='SHOP - Check Prices and Discounts',
+            width='stretch',
+            key='shop_button'
+        ):
+            st.switch_page('ui/views/shop.py')
 
-    st.button(
-        label='Test',
-        width='stretch',
-
-    )
-
-    if i_want_to == 'SHOP':
-        st.switch_page('ui/views/shop.py')
-
-    if i_want_to == 'PLAN':
-        st.switch_page('ui/views/plan.py')
+        if st.button(
+            label='PLAN - Make Shoppinglist and Compare Prices',
+            width='stretch',
+            key='plan_button'
+        ):
+            st.switch_page('ui/views/plan.py')
 
 
 if __name__ == "__main__":
