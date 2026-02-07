@@ -92,7 +92,7 @@ def render():
         # Display of already selected stores
         with st.container(border=True):
             # Title row for selected stores with option to reset
-            col1, col2 = st.columns(spec=[5, 1], vertical_alignment='bottom')
+            col1, col2 = st.columns(spec=[4, 1], vertical_alignment='bottom')
             col1.subheader(':orange[Selected Stores:]')
             if col2.button(label='Reset', icon=":material/cleaning_bucket:"):
                 st.session_state['selected_stores'] = []
