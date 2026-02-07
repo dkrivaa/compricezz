@@ -126,28 +126,32 @@ def render():
     # Add unit prices to shoppinglist entries
     updated_shoppinglist = shopping_list_with_unit_prices(shoppinglist)
 
-    # Display total per store
-    totals = total_per_store(updated_shoppinglist)
-    for key, value in totals.items():
-        st.metric(
-            label=from_key_to_store_name(key),
-            value=f"₪ {value:.2f}"
+    tab1, tab2 = st.tabs(['Total per Store', 'Best Cost for K Stores'])
+
+    with tab1:
+        # Display total per store
+        totals = total_per_store(updated_shoppinglist)
+        for key, value in totals.items():
+            st.metric(
+                label=from_key_to_store_name(key),
+                value=f"₪ {value:.2f}"
+            )
+
+    with tab2:
+        # Find best cost for k stores
+        k = st.slider(
+            label='Max Number of Stores to Visit',
+            min_value=1,
+            max_value=max_stores(),
+            value=2,
+            step=1
         )
 
-    # Find best cost for k stores
-    k = st.slider(
-        label='Max Number of Stores to Visit',
-        min_value=1,
-        max_value=max_stores(),
-        value=2,
-        step=1
-    )
-
-    # Get best combination, total cost and shopping plan for each of k stores
-    best_combo, best_total, best_plan = best_cost_for_k_stores(updated_shoppinglist, k=k)
-    st.write(best_combo)
-    st.write(best_total)
-    st.write(best_plan)
+        # Get best combination, total cost and shopping plan for each of k stores
+        best_combo, best_total, best_plan = best_cost_for_k_stores(updated_shoppinglist, k=k)
+        st.write(best_combo)
+        st.write(best_total)
+        st.write(best_plan)
 
 
 if __name__ == "__main__":
