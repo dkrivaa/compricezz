@@ -131,7 +131,7 @@ def render():
     for key, value in totals.items():
         st.metric(
             label=from_key_to_store_name(key),
-            value = f"₪ {value:.2f}"
+            value=f"₪ {value:.2f}"
         )
 
     # Find best cost for k stores
