@@ -8,9 +8,10 @@ def render():
 
     # Select what to do - Shop or Plan
     i_want_to = st.radio(
-            label='I want to:',
-            options=['SHOP', 'PLAN'],
-            index=None
+        label='I want to:',
+        options=['SHOP', 'PLAN'],
+        index=None,
+        width='stretch'
         )
 
     if i_want_to == 'SHOP':
