@@ -9,12 +9,30 @@ import asyncio
 if sys.platform == 'win32':
     asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
 
-
 import streamlit as st
 
 # Initialize all chains
 from backend.bootstrap import initialize_backend
 initialize_backend()
+
+
+# st.set_page_config - Set the configuration of the Streamlit page
+st.set_page_config(
+    page_title="My App",
+    page_icon="📱",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
+
+# 2. CSS across app
+st.markdown("""
+<style>
+    @media (max-width: 768px) {
+        .block-container {padding: 1rem;}
+        .stButton > button {width: 100%;}
+    }
+</style>
+""", unsafe_allow_html=True)
 
 
 home_page = st.Page(
