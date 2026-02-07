@@ -27,6 +27,16 @@ class SupermarketChain:
 
     ### Other general class methods
     @classmethod
+    async def safe_prices(cls, store_code: int | str, ):
+        """ Wrapper for prices() that returns None if prices() raises an exception """
+        try:
+            return await cls.prices(store_code)
+        except Exception as e:
+            print(f"Error getting prices for {cls.alias} store {store_code}: {e}")
+            return None
+
+
+    @classmethod
     async def get_code(cls):
         """ Returns the code of the supermarket chain """
         return getattr(cls, 'chain_code', None)
