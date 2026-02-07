@@ -67,38 +67,42 @@ def render():
     st.subheader('Make Shoppinglist and Compare Prices')
     st.divider()
 
-    # Selection of chain and store
-    with st.container(border=True):
-        st.subheader(':blue[Select Stores:]')
-        chain_code, chain_alias = chain_selector()
-        if chain_code:
-            # Only run spinner when actually loading stores
-            with st.spinner('Loading Stores...'):
-                store_code, store_name = store_selector(chain_code=chain_code)
+    tab1, tab2 = st.tabs(['Select Stores', 'Selected Stores'])
 
-            if store_code:
-                # Add selected store to session_state
-                st.session_state['selected_stores'].append({'chain_code': chain_code,
-                                                            'chain_alias': chain_alias,
-                                                            'store_code': store_code,
-                                                            'store_name': store_name})
-                st.session_state['reset_selectors'] = True
-                st.rerun()
+    with tab1:
+        # Selection of chain and store
+        with st.container(border=True):
+            st.subheader(':blue[Select Stores:]')
+            chain_code, chain_alias = chain_selector()
+            if chain_code:
+                # Only run spinner when actually loading stores
+                with st.spinner('Loading Stores...'):
+                    store_code, store_name = store_selector(chain_code=chain_code)
 
-    # Display of already selected stores
-    with st.container(border=True):
-        # Title row for selected stores with option to reset
-        col1, col2 = st.columns(spec=[5, 1], vertical_alignment='bottom')
-        col1.subheader(':orange[Selected Stores:]')
-        if col2.button(label='Reset', icon=":material/cleaning_bucket:"):
-            st.session_state['selected_stores'] = []
-            if 'lead_store' in st.session_state:
-                del st.session_state['lead_store']
-        # Selected stores
-        if len(st.session_state['selected_stores']) > 0:
-            selected_stores_for_planning()
-        else:
-            st.info('No Stores Selected Yet')
+                if store_code:
+                    # Add selected store to session_state
+                    st.session_state['selected_stores'].append({'chain_code': chain_code,
+                                                                'chain_alias': chain_alias,
+                                                                'store_code': store_code,
+                                                                'store_name': store_name})
+                    st.session_state['reset_selectors'] = True
+                    st.rerun()
+
+    with tab2:
+        # Display of already selected stores
+        with st.container(border=True):
+            # Title row for selected stores with option to reset
+            col1, col2 = st.columns(spec=[5, 1], vertical_alignment='bottom')
+            col1.subheader(':orange[Selected Stores:]')
+            if col2.button(label='Reset', icon=":material/cleaning_bucket:"):
+                st.session_state['selected_stores'] = []
+                if 'lead_store' in st.session_state:
+                    del st.session_state['lead_store']
+            # Selected stores
+            if len(st.session_state['selected_stores']) > 0:
+                selected_stores_for_planning()
+            else:
+                st.info('No Stores Selected Yet')
 
     # Continue to shoppinglist
     if st.button(label='Continue', key='continue'):
