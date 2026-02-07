@@ -16,6 +16,7 @@ def render():
 
     st.button(
         label='Test',
+        width='stretch',
 
     )
 
