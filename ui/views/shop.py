@@ -28,6 +28,8 @@ def render():
                 with st.spinner('Loading Stores...'):
                     store_code, _ = store_selector(chain_code=chain_code)
                     st.session_state['run_spinner'] = False
+            else:
+                store_code = st.session_state.store_code
 
             if store_code:
                 # Enter store_code into session_state
