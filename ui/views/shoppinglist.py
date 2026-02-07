@@ -228,55 +228,66 @@ def render():
     st.subheader('Add items to basket')
     st.divider()
 
-    # Get price_data for main store
-    # Set an item selector element, quantity and add button
-    with st.form(key='add_item_form'):
-        st.subheader(':blue[Add Item]')
-        col1, col2, col3 = st.columns([0.6, 0.3, 0.1], vertical_alignment='bottom')
-        with col1:
-            item = item_selector(st.session_state.get(main_store_key))
-        with col2:
-            quantity = st.number_input(label='Quantity', min_value=0.0, step=0.5, key='quantity_input')
-        with col3:
-            submitted = st.form_submit_button(label='', icon=':material/add_shopping_cart:')
-
-    if submitted and item:
-        if quantity == 0:
-            quantity = 1
-        st.session_state['reset_quantity'] = True
-        # Check item is not in shoppinglist
-        if item not in [d['item'] for d in st.session_state.shoppinglist[main_store_key]]:
-            add_item(item=item, quantity=quantity)
-        else:
-            item_already_in_shoppinglist()
-
-    # Display shoppinglist items
-    delete_idx = None
-    with st.container(border=True):
-        st.subheader(':blue[Shoppinglist]')
-        for idx, item in enumerate(st.session_state.shoppinglist.get(main_store_key)):
+    tab1, tab2 = st.tabs(['Add Items', 'Shoppinglist'])
+    with tab1:
+        # Get price_data for main store
+        # Set an item selector element, quantity and add button
+        with st.form(key='add_item_form'):
+            st.subheader(':blue[Add Item]')
             col1, col2, col3 = st.columns([0.6, 0.3, 0.1], vertical_alignment='bottom')
             with col1:
-                # The value displayed - item code and item name
-                st.text_input(label='not to show',
-                              label_visibility='hidden',
-                              key=f'{idx}_item_name_{item['item']}',
-                              value=f"{item['item']} - {next(d.get('ItemName') or d.get('ItemNm') 
-                                       for d in st.session_state[main_store_session_key()] 
-                                       if d['ItemCode'] == item['item'])}")
+                item = item_selector(st.session_state.get(main_store_key))
             with col2:
-                updated_quantity = st.number_input(label='Quantity', value=item['quantity'],
-                                                   key=f'q_{item['item']}')
-                if updated_quantity != item['quantity']:
-                    update_quantity(idx, updated_quantity)
+                quantity = st.number_input(label='Quantity', min_value=0.0, step=0.5, key='quantity_input')
             with col3:
-                st.button(label='', icon=':material/delete:', key=item['item'],
-                          on_click=lambda i=idx: delete_item(i))
+                submitted = st.form_submit_button(label='Add',
+                                                  icon=':material/add_shopping_cart:',
+                                                  icon_position='left',
+                                                  width='stretch')
 
-    st.write(st.session_state.shoppinglist)
+        if submitted and item:
+            if quantity == 0:
+                quantity = 1
+            st.session_state['reset_quantity'] = True
+            # Check item is not in shoppinglist
+            if item not in [d['item'] for d in st.session_state.shoppinglist[main_store_key]]:
+                add_item(item=item, quantity=quantity)
+            else:
+                item_already_in_shoppinglist()
+
+    with tab2:
+        # Display shoppinglist items
+        delete_idx = None
+        with st.container(border=True):
+            st.subheader(':blue[Shoppinglist]')
+            for idx, item in enumerate(st.session_state.shoppinglist.get(main_store_key)):
+                with st.container(border=True):
+                    # The value displayed - item code and item name
+                    st.text_input(label='not to show',
+                                  label_visibility='hidden',
+                                  key=f'{idx}_item_name_{item['item']}',
+                                  value=f"{item['item']} - {next(d.get('ItemName') or d.get('ItemNm') 
+                                           for d in st.session_state[main_store_session_key()] 
+                                           if d['ItemCode'] == item['item'])}")
+                    # The quantity input
+                    updated_quantity = st.number_input(label='Quantity', value=item['quantity'],
+                                                       key=f'q_{item['item']}')
+                    if updated_quantity != item['quantity']:
+                        update_quantity(idx, updated_quantity)
+                    # Remove item button
+                    st.button(label='Remove',
+                              icon=':material/delete:',
+                              icon_position='left',
+                              key=item['item'],
+                              width='stretch',
+                              on_click=lambda i=idx: delete_item(i))
+
+        st.write(st.session_state.shoppinglist)
 
     # Continue to price comparison
-    if st.button('Compare Prices', key='compare_prices'):
+    if st.button('Compare Prices',
+                 key='compare_prices',
+                 width='stretch'):
         # Switch to price comparison page
         st.switch_page('ui/views/pricecomparison.py')
 
