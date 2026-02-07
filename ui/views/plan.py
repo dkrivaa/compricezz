@@ -105,7 +105,9 @@ def render():
                 st.info('No Stores Selected Yet')
 
     # Continue to shoppinglist
-    if st.button(label='Continue', key='continue'):
+    if st.button(label='Continue to Shoppinglist',
+                 width='stretch',
+                 key='continue'):
         if len(st.session_state['selected_stores']) > 0:
             leading_store()
         else:
