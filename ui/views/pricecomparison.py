@@ -198,7 +198,7 @@ def render():
         common = common_items(store_keys)
         for item in common:
             st.write(item)
-            # st.write(f"{item} - {next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store_keys[0]] if d['ItemCode'] == item)}")
+            st.write(f"{item} - {next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store_keys[1]] if d['ItemCode'] == item)}")
             # for key in store_keys:
             #     price = next(d['ItemPrice'] for d in st.session_state[key] if d['ItemCode'] == item)
             #     st.write(f"{key}: ₪ {price:.2f}")
