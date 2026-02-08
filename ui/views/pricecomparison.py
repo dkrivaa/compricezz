@@ -134,8 +134,6 @@ def common_items(store_keys):
     return common
 
 
-
-
 def render():
     """ Render the price comparison view """
     st.title('Price Comparison')
