@@ -146,7 +146,7 @@ def render():
     # Add unit prices to shoppinglist entries
     updated_shoppinglist = shopping_list_with_unit_prices(shoppinglist)
 
-    tab1, tab2, tab3 = st.tabs(['Total per Store', 'Save the Most', 'All Prices'])
+    tab1, tab2 = st.tabs(['Total per Store', 'Save the Most', ])
 
     with tab1:
         # Display total per store
@@ -191,18 +191,18 @@ def render():
                 st.write(f"{item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
                 st.divider()
 
-    with tab3:
-        # Display all prices for all items with same itemCode in all stores
-        store_keys = session_keys()
-        st.write(store_keys)
-        common = common_items(store_keys)
-        for item in common:
-            st.write(item)
-            st.write(f"{item} - {next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store_keys[1]] if d['ItemCode'] == item)}")
-            for key in store_keys:
-                price = next((d['ItemPrice'] for d in st.session_state[key] if d['ItemCode'] == item), None)
-                st.write(f"{key}: ₪ {price}")
-            st.divider()
+    # with tab3:
+    #     # Display all prices for all items with same itemCode in all stores
+    #     store_keys = session_keys()
+    #     st.write(store_keys)
+    #     common = common_items(store_keys)
+    #     for item in common:
+    #         st.write(item)
+    #         st.write(f"{item} - {next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store_keys[1]] if d['ItemCode'] == item)}")
+    #         for key in store_keys:
+    #             price = next((d['ItemPrice'] for d in st.session_state[key] if d['ItemCode'] == item), None)
+    #             st.write(f"{key}: ₪ {price}")
+    #         st.divider()
 
 
 if __name__ == "__main__":
