@@ -84,7 +84,7 @@ test_page = st.Page(
 )
 
 pages = {
-    "": [home_page, db_page, test_page],
+    "": [home_page],
     "Shopping": [shop_page, item_page],
     "Planning": [plan_page, shoppinglist_page, pricecomparison_page]
 }
