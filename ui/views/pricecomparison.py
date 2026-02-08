@@ -2,6 +2,8 @@ import streamlit as st
 import itertools
 import math
 
+from backend.utilities.general import session_code
+
 
 def best_cost_for_k_stores(shoppinglist, k):
     """
@@ -116,9 +118,20 @@ def from_key_to_store_name(key):
     return f'{chain} - {store}'
 
 
-def common_items():
-    """ Get list of items that are common to all selected stores """
-    store_keys = list(st.session_state.get('selected_stores', {}).keys())
+def session_keys():
+    """ Get list of store_keys (chain_code + store_code) for all selected stores """
+    store_keys = [session_code(d['chain_code'], d['store_code']) for d in st.session_state['selected_stores']]
+    return store_keys
+
+
+def common_items(store_keys):
+    """ Get list of item codes common to all stores in store_keys """
+    item_sets = []
+    for key in store_keys:
+        items = set(d['ItemCode'] for d in st.session_state[key])
+        item_sets.append(items)
+    common = set.intersection(*item_sets)
+    return common
 
 
 
@@ -180,7 +193,9 @@ def render():
 
     with tab3:
         # Display all prices for all items with same itemCode in all stores
-        st.write(st.session_state.get('selected_stores', []))
+        store_keys = session_keys()
+        common = common_items(store_keys)
+        st.write(common)
 
 
 if __name__ == "__main__":
