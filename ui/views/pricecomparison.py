@@ -150,8 +150,25 @@ def render():
         # Get best combination, total cost and shopping plan for each of k stores
         best_combo, best_total, best_plan = best_cost_for_k_stores(updated_shoppinglist, k=k)
         st.write(best_combo)
+        st.subheader('Visit:')
+        for store in best_combo:
+            st.write(from_key_to_store_name(store))
+
+        st.divider()
+
         st.write(best_total)
+        st.metric(
+            label='Total Cost',
+            value=f"₪ {best_total:.2f}",
+            delta=f"₪ {total_per_store(updated_shoppinglist)[best_combo[0]] - best_total:.2f} saved"
+        )
+
+        st.divider()
         st.write(best_plan)
+        for store in best_combo:
+            st.subheader(from_key_to_store_name(store))
+            for item in best_plan[store]:
+                st.write(f"{item['item']}: {item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
 
 
 if __name__ == "__main__":
