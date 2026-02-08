@@ -168,7 +168,6 @@ def render():
         for store in best_combo:
             st.subheader(from_key_to_store_name(store))
             for item in best_plan[store]:
-                st.write(st.session_state[store])
                 # item_name = next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store]
                 #                             if d['ItemCode'] == item)
                 st.write(f"{item['item']}: {item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
