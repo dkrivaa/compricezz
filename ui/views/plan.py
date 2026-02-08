@@ -91,7 +91,7 @@ def render():
                     st.rerun()
 
     with tab2:
-        # Display of already selected stores
+        # Display of stores already selected
         with st.container(border=True):
             # Title row for selected stores with option to reset
             st.subheader(':orange[Selected Stores:]')
