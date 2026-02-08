@@ -167,7 +167,8 @@ def render():
             for item in best_plan[store]:
                 item_name = next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store]
                                             if d['ItemCode'] == item['item'])
-                st.write(f"{item['item']} - {item_name}: {item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
+                st.write(f"{item['item']} - {item_name}:")
+                st.write(f"{item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
 
 
 if __name__ == "__main__":
