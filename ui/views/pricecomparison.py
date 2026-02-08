@@ -169,6 +169,7 @@ def render():
                                             if d['ItemCode'] == item['item'])
                 st.write(f"{item['item']} - {item_name}:")
                 st.write(f"{item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
+                st.divider()
 
 
 if __name__ == "__main__":
