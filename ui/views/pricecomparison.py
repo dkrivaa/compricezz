@@ -116,6 +116,13 @@ def from_key_to_store_name(key):
     return f'{chain} - {store}'
 
 
+def common_items():
+    """ Get list of items that are common to all selected stores """
+    store_keys = list(st.session_state.get('selected_stores', {}).keys())
+
+
+
+
 def render():
     """ Render the price comparison view """
     st.title('Price Comparison')
@@ -170,6 +177,10 @@ def render():
                 st.write(f"{item['item']} - {item_name}:")
                 st.write(f"{item['quantity']} x ₪ {item['unit_price']:.2f} = ₪ {item['total_price']:.2f}")
                 st.divider()
+
+    with tab3:
+        # Display all prices for all items with same itemCode in all stores
+        st.write(st.session_state.get('selected_stores', []))
 
 
 if __name__ == "__main__":
