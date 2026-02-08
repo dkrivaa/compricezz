@@ -14,7 +14,7 @@ async def fresh_price_data(chain_code: str | int, store_code: str | int, ) -> di
     # Get the supermarket chain class from its chain code
     chain = next((c for c in SupermarketChain.registry if c.chain_code == str(chain_code)), None)
     # Get the latest price URLs for the given chain and store code
-    urls = await chain.safe_prices(store_code=store_code) if chain and store_code else None
+    urls = await chain.prices(store_code=store_code) if chain and store_code else None
     if urls:
         # Use pricefull URL and cookies if available
         url = urls.get('pricefull') or urls.get('PriceFull') if urls else None
@@ -34,7 +34,7 @@ async def fresh_promo_data(chain_code: str | int, store_code: str | int, ) -> di
     # Get the supermarket chain class from its alias
     chain = next((c for c in SupermarketChain.registry if c.chain_code == str(chain_code)), None)
     # Get the latest price URLs for the given chain and store code
-    urls = await chain.safe_prices(store_code=store_code) if chain and store_code else None
+    urls = await chain.prices(store_code=store_code) if chain and store_code else None
     if urls:
         # Use promofull URL and cookies if available
         url = urls.get('promofull') or urls.get('PromoFull') if urls else None
