@@ -195,7 +195,7 @@ def render():
         # Display all prices for all items with same itemCode in all stores
         store_keys = session_keys()
         common = common_items(store_keys)
-        st.write(common)
+        st.write(len(common))
 
 
 if __name__ == "__main__":
