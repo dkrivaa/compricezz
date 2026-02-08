@@ -126,7 +126,7 @@ def render():
     # Add unit prices to shoppinglist entries
     updated_shoppinglist = shopping_list_with_unit_prices(shoppinglist)
 
-    tab1, tab2 = st.tabs(['Total per Store', 'Save the Most'])
+    tab1, tab2, tab3 = st.tabs(['Total per Store', 'Save the Most', 'All Prices'])
 
     with tab1:
         # Display total per store
