@@ -200,7 +200,7 @@ def render():
             st.write(item)
             st.write(f"{item} - {next(d.get('ItemName') or d.get('ItemNm') for d in st.session_state[store_keys[1]] if d['ItemCode'] == item)}")
             for key in store_keys:
-                price = next((d['ItemPrice'] for d in st.session_state[key] if d['ItemCode'] == item), '1')
+                price = next((d['ItemPrice'] for d in st.session_state[key] if d['ItemCode'] == item), None)
                 st.write(f"{key}: ₪ {price}")
             st.divider()
 
