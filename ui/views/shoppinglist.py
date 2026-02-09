@@ -230,7 +230,7 @@ def render():
     st.subheader('Add items to basket')
     st.divider()
 
-    tab1, tab2 = st.tabs(['Add Items', 'Shoppinglist'])
+    tab1, tab2, tab3 = st.tabs(['Add Items', 'Upload Shoppinglist', 'Shoppinglist'])
     with tab1:
         # Get price_data for main store
         # Set an item selector element, quantity and add button
@@ -258,6 +258,16 @@ def render():
                 item_already_in_shoppinglist()
 
     with tab2:
+        """ Upload shoppinglist """
+        uploaded_file = st.file_uploader(label='Upload an Excel or CSV Shoppinglist with Barcodes and Quantities',
+                                         type=['xlsx', 'csv'],
+                                         key='file_uploader')
+
+
+
+
+
+    with tab3:
         # Display shoppinglist items
         delete_idx = None
         with st.container(border=True):
@@ -270,7 +280,8 @@ def render():
                                   key=f'{idx}_item_name_{item['item']}',
                                   value=f"{item['item']} - {next(d.get('ItemName') or d.get('ItemNm') 
                                            for d in st.session_state[main_store_session_key()] 
-                                           if d['ItemCode'] == item['item'])}")
+                                           if d['ItemCode'] == item['item'])}",
+                                  disabled=True)
                     # The quantity input
                     updated_quantity = st.number_input(label='Quantity', value=item['quantity'],
                                                        key=f'q_{item['item']}')
